@@ -20,5 +20,23 @@ def read_recipe_file(filename):
     return cook_book
 
 cook_book = read_recipe_file('recipes.txt')
-print(cook_book)
+#print(cook_book)
 
+
+def get_shop_list_by_dishes(dishes, person_count):
+    shop_list = {}
+    for dish in dishes:
+        for ingredient in cook_book[dish]:
+            name = ingredient['ingredient']
+            measure = ingredient['measure']
+            quantity = ingredient['quantity'] * person_count
+            if name not in shop_list:
+                shop_list[name] = {'measure': measure, 'quantity': quantity}
+            else:
+                shop_list[name]['quantity'] += quantity
+    return shop_list
+
+dishes = ['Омлет', 'Запеченный картофель']
+person_count = 4
+shop_list = get_shop_list_by_dishes(dishes, person_count)
+print(shop_list)
