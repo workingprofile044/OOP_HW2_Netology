@@ -39,4 +39,33 @@ def get_shop_list_by_dishes(dishes, person_count):
 dishes = ['Омлет', 'Запеченный картофель']
 person_count = 4
 shop_list = get_shop_list_by_dishes(dishes, person_count)
-print(shop_list)
+#print(shop_list)
+
+import codecs
+
+file1 = "1.txt"
+file2 = "2.txt"
+file3 = "3.txt"
+
+def get_num_lines(filename):
+    with open(filename, 'r', encoding='utf-8') as f:
+        return sum(1 for line in f)
+
+files = [(file1, get_num_lines(file1)), (file2, get_num_lines(file2)), (file3, get_num_lines(file3))]
+
+files.sort(key=lambda x: x[1])
+
+merged_file = "result.txt"
+
+with open(merged_file, 'w', encoding='utf-8') as f:
+    for i, file in enumerate(files):
+        filename = file[0]
+        num_lines = file[1]
+        f.write(f"Файл {filename} - {num_lines} строк\n")
+        with codecs.open(filename, 'r', encoding='utf-8') as f1:
+            for j, line in enumerate(f1):
+                f.write(f"строка {j+1} из файла {filename} - {line}")
+        f.write('\n')
+
+with open(merged_file, 'a', encoding='utf-8') as f:
+    f.write('\n')
